@@ -1,0 +1,23 @@
+{
+  "spaceId": "yaek2eheu5pz",
+  "environmentId": "master",
+  "managementToken": "--management-token--",
+  "deliveryToken": "--deleivery-token--",
+  "exportDir": "exports",
+  "saveFile": true,
+  "contentFile": "export.json",
+  "includeDrafts": true,
+  "includeArchived": true,
+  "skipContentModel": false,
+  "skipEditorInterfaces": true,
+  "skipContent": false,
+  "skipTags": true,
+  "skipRoles": true,
+  "skipWebhooks": false,
+  "contentOnly": false,
+  "queryEntries": [],
+  "queryAssets": [],
+  "downloadAssets": false,
+  "errorLogFile": "exports",
+  "useVerboseRenderer": false
+}

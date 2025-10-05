@@ -1,0 +1,24 @@
+[
+    {
+        "sourceContentType": "productVariant",
+        "targetContentType": "productSizePack",
+        "fieldMappings": {
+            "name": "name",
+            "title": "variantName",
+            "gtin": "gtin",
+            "size": "variantName",
+            "image": "productImagesAndVideos"
+        }
+    },
+    {
+        "sourceContentType": "image",
+        "targetContentType": "image",
+        "fieldMappings": {
+            "name": "name",
+            "title": "name",
+            "alt": "altText",
+            "size": "variantName",
+            "asset": "image"
+        }
+    }
+]

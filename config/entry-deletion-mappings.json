@@ -1,0 +1,156 @@
+{
+    "description": "Configuration file for defining entry deletion criteria during publishing process",
+    "version": "1.0.0",
+    "lastUpdated": "2024-12-19",
+    "deletionRules": [
+        {
+            "id": "remove-empty-seo-entries",
+            "name": "Remove SEO entries with no meaningful content",
+            "enabled": true,
+            "contentTypes": [
+                "seoHead"
+            ],
+            "conditions": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "field": "url",
+                        "operator": "isEmpty",
+                        "description": "No url"
+                    }
+                ]
+            },
+            "safetyChecks": {
+                "checkLinks": true,
+                "skipIfReferenced": true,
+                "requireConfirmation": false
+            },
+            "environments": [
+                "always-de",
+                "always-uk",
+                "always-fr"
+            ]
+        },
+        {
+            "id": "remove-empty-entries",
+            "name": "Remove entries with no meaningful content",
+            "enabled": true,
+            "contentTypes": [
+                "page"
+            ],
+            "conditions": {
+                "operator": "AND",
+                "rules": [
+                    {
+                        "field": "seoHead",
+                        "operator": "isEmpty",
+                        "description": "No Entry linked or mapped"
+                    }
+                ]
+            },
+            "safetyChecks": {
+                "checkLinks": true,
+                "skipIfReferenced": false,
+                "requireConfirmation": true
+            },
+            "environments": [
+                "always-de",
+                "always-uk",
+                "always-fr"
+            ]
+        },
+        {
+            "id": "remove-completely-empty-entries",
+            "name": "Remove entries with absolutely no meaningful data",
+            "enabled": true,
+            "contentTypes": [
+                "*"
+            ],
+            "conditions": {
+                "operator": "OR",
+                "rules": [
+                    {
+                        "field": "*",
+                        "operator": "isEmpty",
+                        "description": "All fields are empty across all locales"
+                    },
+                    {
+                        "field": "*",
+                        "operator": "hasNoData",
+                        "description": "Entry has no meaningful content in any field"
+                    }
+                ]
+            },
+            "safetyChecks": {
+                "checkLinks": true,
+                "skipIfReferenced": false,
+                "unlinkBeforeDeletion": true,
+                "requireConfirmation": false
+            },
+            "environments": [
+                "always-de",
+                "always-uk",
+                "always-fr",
+                "mobile-app"
+            ],
+            "priority": 1,
+            "description": "This rule targets entries that have no meaningful content whatsoever. It will attempt to unlink the entry from all references before deletion."
+        }
+    ],
+    "globalSettings": {
+        "defaultBehavior": {
+            "checkLinksBeforeDeletion": true,
+            "skipReferencedEntries": true,
+            "createDeletionReport": true,
+            "maxDeletionsPerRun": 100
+        },
+        "operators": {
+            "isEmpty": "Field is null, undefined, or empty string/array",
+            "isNotEmpty": "Field has meaningful value",
+            "equals": "Field value equals specified value",
+            "notEquals": "Field value does not equal specified value",
+            "contains": "Field value contains specified substring",
+            "startsWith": "Field value starts with specified string",
+            "endsWith": "Field value ends with specified string",
+            "before": "Date field is before specified date/time",
+            "after": "Date field is after specified date/time",
+            "olderThan": "Entry created/updated before X days/hours ago",
+            "newerThan": "Entry created/updated after X days/hours ago",
+            "greaterThan": "Numeric field is greater than value",
+            "lessThan": "Numeric field is less than value"
+        },
+        "logicalOperators": {
+            "AND": "All conditions must be true",
+            "OR": "At least one condition must be true"
+        },
+        "specialValues": {
+            "now": "Current date/time",
+            "*": "Applies to all content types",
+            "30d": "30 days ago",
+            "7d": "7 days ago",
+            "1h": "1 hour ago"
+        }
+    },
+    "environmentConfig": {
+        "always-de": {
+            "safeMode": true,
+            "maxDeletionsPerRun": 50,
+            "requireConfirmationForAll": false
+        },
+        "always-uk": {
+            "safeMode": true,
+            "maxDeletionsPerRun": 100,
+            "requireConfirmationForAll": false
+        },
+        "always-fr": {
+            "safeMode": true,
+            "maxDeletionsPerRun": 100,
+            "requireConfirmationForAll": false
+        },
+        "mobile-app": {
+            "safeMode": true,
+            "maxDeletionsPerRun": 25,
+            "requireConfirmationForAll": true
+        }
+    }
+}
